@@ -1,0 +1,35 @@
+.sidebar {
+  border-radius: 0;
+  position: fixed;
+  z-index: 3;
+  top: 50px;
+  left: 225px;
+  width: 225px;
+  margin-left: -225px;
+  border: none;
+  border-radius: 0;
+  overflow-y: auto;
+  bottom: 0;
+  overflow-x: hidden;
+  padding-bottom: 40px;
+  transition: all 0.2s ease-in-out;
+
+  .list-group {
+
+    a.list-group-item {
+      border: 0;
+      border-radius: 0;
+      color: #999;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #fff;
+    }
+
+    a.router-link-active {
+      color: #fff;
+    }
+
+  }
+}

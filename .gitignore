@@ -1,0 +1,13 @@
+# ingore packages installed by npm
+node_modules
+# ingore directory created by editor.
+.idea
+# ingore secret credentials for security reason.
+credentials.js
+# ingore the compressed files
+*.zip
+*.rar
+# ignore the distributions we produced.
+dist
+# ignore the typings
+typings

@@ -1,0 +1,12 @@
+<button class="btn btn-default" id="toggle-sidebar" type="button" (click)="eventCalled()">
+    &#9776;
+</button>
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="target" (keyup)="search()">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+            </span>
+    </div>
+    <ftl-menu-folder *ngIf="folder" [folder]="folder" [root]="true"></ftl-menu-folder>
+</nav>
