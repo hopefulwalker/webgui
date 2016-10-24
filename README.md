@@ -1,2 +1,2 @@
 # webgui
-web gui framework for flying ltd.
+web gui framework

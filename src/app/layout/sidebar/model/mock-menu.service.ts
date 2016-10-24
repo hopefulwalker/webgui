@@ -6,12 +6,12 @@ import {MenuService} from "./menu.service";
 
 @Injectable()
 export class MockMenuService implements MenuService {
-    private item_dashboard = new MenuItem('MOCK', '仪表盘', 'fa fa-dashboard fa-fw', 'blank');
+    private item_dashboard = new MenuItem('MOCK', '仪表盘', 'fa fa-dashboard fa-fw', 'restclient');
     private item_1 = new MenuItem('MOCK', 'item-1', 'fa fa-table fa-fw', 'item-1');
     private item_2 = new MenuItem('MOCK', 'item-2', 'fa fa-search fa-fw', 'item-2');
     private item_3 = new MenuItem('MOCK', 'item-3', 'icon', 'item-3');
     private item_4 = new MenuItem('MOCK', '用户管理', 'fa fa-users fa-fw', 'blankpage');
-    private item_5 = new MenuItem('MOCK', '菜单管理', 'fa fa-bars fa-fw', 'navigationmenus');
+    private item_5 = new MenuItem('MOCK', '菜单管理', 'fa fa-bars fa-fw', 'navigationmenus');    
 
     private l2_folder_1 = new MenuFolder('MOCK', 'l2_folder-1', 'fa fa-sitemap fa-fw', [this.item_3], null);
     private l2_folder_2 = new MenuFolder('MOCK', 'l2_folder-2', 'fa fa-sitemap fa-fw', [this.item_1, this.item_2, this.item_3], null);

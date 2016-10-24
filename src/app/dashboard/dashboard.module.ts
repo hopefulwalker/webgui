@@ -6,6 +6,7 @@ import {RouterModule} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {LayoutModule} from "../layout/layout.module";
 import {NavigationMenuModule} from "../navigation-menu/navigation-menu.module";
+import {RestClientModule} from "../rest-client/rest-client.module";
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import {NavigationMenuModule} from "../navigation-menu/navigation-menu.module";
         LayoutModule,
         HomeModule,
         BlankPageModule,
-        NavigationMenuModule
+        NavigationMenuModule,
+        RestClientModule
     ],
     declarations: [DashboardComponent],
     exports: [DashboardComponent]
