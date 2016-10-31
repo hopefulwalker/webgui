@@ -1,20 +1,26 @@
-<div class="container">
-    <h1>Hero Form</h1>
-    <form>
-        <div class="form-group">
-            <label for="url">Url:</label>
-            <input type="text" class="form-control" id="url" required>
+<h1>Hero Form</h1>
+<form (ngSubmit)="onSubmit()" #reqForm="ngForm">
+    <div class="form-group row">
+        <label for="url" class="col-xs-1 col-form-label">URL:</label>
+        <div class="col-xs-11">
+            <input class="form-control" type="text" id="url" required [(ngModel)]="reqInfo.url" name="url">
         </div>
-        <div class="form-group">
-            <label for="method">Method</label>
-            <select class="form-control" id="method">
-                <option>A</option>
+    </div>
+    <div class="form-group row">
+        <label for="method" class="col-xs-1 col-form-label">Method:</label>
+        <div class="col-xs-11">
+            <select class="form-control" id="method" [(ngModel)]="reqInfo.method" name="method">
+                <option>GET</option>
+                <option>POST</option>
             </select>
         </div>
-        <div class="form-group">
-            <label for="body">Body</label>
-            <input type="text" class="form-control" id="body" required>
+    </div>
+    <div class="form-group row">
+        <label for="body" class="col-xs-1 col-form-label">Body</label>
+        <div class="col-xs-11">
+            <input class="form-control" type="text" id="body" [(ngModel)]="reqInfo.body" name="body">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-    </form>
-</div>
+    </div>
+    <button type="submit" class="btn btn-default" [disabled]="!reqForm.form.valid">Submit</button>
+</form>
+<p>{{resInfo}}</p>

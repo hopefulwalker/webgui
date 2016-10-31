@@ -5,10 +5,5 @@ export class MenuFolder {
                 public icon:string,
                 public items:MenuItem[],
                 public folders:MenuFolder[]) {
-        this.sysName=sysName;
-        this.id = id;
-        this.icon = icon;
-        this.items = items;
-        this.folders = folders;
     }
 }
