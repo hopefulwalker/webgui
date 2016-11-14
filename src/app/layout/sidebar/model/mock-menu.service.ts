@@ -24,43 +24,40 @@ export class MockMenuService implements MenuService {
 
     private menu = new Menu('MOCK', [this.item_dashboard], [this.l1_folder_3]);
 
-    getSynMenuFolder():MenuFolder {
-        return this.folder;
-    }
-
-    getMenuFolder(target:string):Observable<MenuFolder> {
-        // return Observable.of(this.folder);
-        if (target == null || target.length <= 0) {
-            return Observable.of(this.folder);
-        }
-        return Observable.of(MockMenuService.copyFolder(this.folder, target));
-    }
-
     getMenu(sysName:string, target:string):Observable<Menu> {
         if (target == null || target.length <= 0) {
             return Observable.of(this.menu);
         }
-        return Observable.of(MockMenuService.copyMenu(this.menu, target));
+        return Observable.of(MockMenuService.filterMenu(this.menu, target));
     }
 
-    static copyMenu(menu:Menu, target:string):Menu {
-        let copiedMenu = new Menu('MOCK');
-        if (menu.items != null) {
-            for (let item of menu.items) {
-                if (item.id.toLowerCase().indexOf(target.toLowerCase()) !== -1) {
-                    copiedMenu.items.push(item);
-                }
+    static filterMenu(menu:Menu, target:string):Menu {
+        let filteredMenu = new Menu('MOCK', null, null);
+
+        filteredMenu.items.push(...MockMenuService.filterItems(menu.items, target));
+
+        filteredMenu.folders.push(...MockMenuService.filterFolders(menu.folders, target));
+
+        return filteredMenu;
+    }
+
+    static filterItems(items:MenuItem[], target:string):MenuItem[] {
+        if (items == null) return [];
+        return items.filter(function (item, index, array) {
+            return (item.id.toLowerCase().indexOf(target.toLowerCase()) !== -1);
+        });
+    }
+
+    static filterFolders(folders:MenuFolder[], target:string):MenuFolder[] {
+        if (folders == null) return [];
+        let filteredFolders:MenuFolder[] = [];
+        for (let folder of folders) {
+            let copiedFolder = MockMenuService.copyFolder(folder, target);
+            if (copiedFolder) {
+                filteredFolders.push(copiedFolder);
             }
         }
-        if (menu.folders != null) {
-            for (let folder of menu.folders) {
-                let copiedFolder = MockMenuService.copyFolder(folder, target);
-                if (copiedFolder != null) {
-                    copiedMenu.folders.push(copiedFolder);
-                }
-            }
-        }
-        return copiedMenu;
+        return filteredFolders;
     }
 
     static copyFolder(folder:MenuFolder, target:string):MenuFolder {
@@ -72,38 +69,25 @@ export class MockMenuService implements MenuService {
         if (folder.folders != null) {
             for (let cfolder of folder.folders) {
                 let copied = MockMenuService.copyFolder(cfolder, target);
-                if (copied != null) {
+                if (copied) {
                     if (mother == null) {
-                        mother = new MenuFolder(folder.id, folder.icon, null, []);
+                        mother = new MenuFolder(folder.id, folder.icon, [], []);
                     }
                     mother.folders.push(copied);
                 }
             }
         }
-        if (folder.items != null) {
-            for (let citem of folder.items) {
-                let copied = MockMenuService.copyItem(citem, target);
-                if (copied != null) {
-                    if (mother == null) {
-                        mother = new MenuFolder(folder.id, folder.icon, [], null);
-                    }
-                    mother.items.push(copied);
-                }
+        let items = MockMenuService.filterItems(folder.items, target);
+        if (items.length > 0) {
+            if (mother == null) {
+                mother = new MenuFolder(folder.id, folder.icon, [], []);
             }
+            mother.items.push(...items);
         }
         return mother;
     }
-
-    static copyItem(item:MenuItem, target:string):MenuItem {
-        if (item.id.toLowerCase().indexOf(target.toLowerCase()) !== -1) {
-            return item;
-        }
-        else {
-            return null;
-        }
-    }
 }
 //
-// let menuService = new MenuService();
+// let menuService = new MockMenuService();
 //
-// console.log(menuService.getMenuFolder());
+// console.log(menuService.getMenu('MOCK',null));

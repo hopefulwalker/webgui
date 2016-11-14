@@ -1,9 +1,9 @@
 import {Component} from "@angular/core";
-import {MenuFolder} from "./model/menu-folder";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
 import {MenuService} from "./model/menu.service";
+import {Menu} from "./model/menu";
 
 @Component({
     selector: 'ftl-sidebar-cmp',
@@ -21,7 +21,7 @@ export class SidebarComponent {
         this.isActive = !this.isActive;
     }
 
-    private folder:MenuFolder;
+    private menu:Menu;
     private target:string;
     private searchSubject = new Subject<string>();
     private folderSubscriber:Subscription;
@@ -31,16 +31,16 @@ export class SidebarComponent {
     }
 
     ngOnInit() {
-        this.folder = this.service.getSynMenuFolder();
         this.folderSubscriber = this.searchSubject.asObservable()
             .debounceTime(500)
             .distinctUntilChanged()
-            .switchMap(target=> this.service.getMenuFolder(target))
+            .switchMap(target=> this.service.getMenu('MOCK', target))
             .catch(error=> {
                 // todo: console.log(error);
                 return Observable.of(null);
             })
-            .subscribe(folder=>this.folder = folder);
+            .subscribe(menu=>this.menu = menu);
+        this.searchSubject.next(null);
     }
 
     ngOnDestroy() {
