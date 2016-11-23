@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<ul class="list-group">
+    <ftl-menu-item *ngFor="let item of menu.items" [item]="item"></ftl-menu-item>
+    <ftl-menu-folder *ngFor="let folder of menu.folders" [folder]="folder"></ftl-menu-folder>
+</ul>
 
-</body>
-</html>
+

@@ -6,7 +6,9 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {TopNavComponent} from "./topnav/topnav";
 import {SidebarComponent} from "./sidebar/sidebar.component";
+import {MenuComponent} from "./sidebar/menu.component";
 import {MenuFolderComponent} from "./sidebar/menu-folder.component";
+import {MenuItemComponent} from "./sidebar/menu-item.component";
 import {MenuService} from "./sidebar/model/menu.service";
 import {MockMenuService} from "./sidebar/model/mock-menu.service";
 
@@ -16,7 +18,7 @@ import {MockMenuService} from "./sidebar/model/mock-menu.service";
 
 @NgModule({
     imports: [CommonModule, RouterModule, FormsModule, LibraryModule, DropdownModule],
-    declarations: [TopNavComponent, SidebarComponent, MenuFolderComponent],
+    declarations: [TopNavComponent, SidebarComponent, MenuComponent, MenuFolderComponent, MenuItemComponent],
     exports: [TopNavComponent, SidebarComponent],
     providers: [{provide: MenuService, useClass: MockMenuService}]
 })

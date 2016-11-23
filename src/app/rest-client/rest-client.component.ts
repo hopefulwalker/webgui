@@ -21,8 +21,4 @@ export class RestClientComponent implements OnInit {
     ngOnInit() {
         this.reqInfo = new RestRequest('http://127.0.0.1:3000', 'POST', '');
     }
-
-    get reqObj() {
-        return JSON.stringify(this.reqInfo);
-    }
 }

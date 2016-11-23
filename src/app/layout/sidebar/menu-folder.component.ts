@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {MenuFolder} from "./model/menu-folder";
 @Component({
     selector: 'ftl-menu-folder',
@@ -6,7 +6,6 @@ import {MenuFolder} from "./model/menu-folder";
 })
 export class MenuFolderComponent {
     @Input() private folder:MenuFolder;
-    @Input() private root:boolean = true;
     private expanded:boolean = false;
 
     toggle() {

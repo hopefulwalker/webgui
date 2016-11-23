@@ -36,7 +36,7 @@ export class SidebarComponent {
             .distinctUntilChanged()
             .switchMap(target=> this.service.getMenu('MOCK', target))
             .catch(error=> {
-                // todo: console.log(error);
+                console.log(error);
                 return Observable.of(null);
             })
             .subscribe(menu=>this.menu = menu);

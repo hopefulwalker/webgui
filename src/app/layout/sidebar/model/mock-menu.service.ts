@@ -14,13 +14,13 @@ export class MockMenuService implements MenuService {
     private item_4 = new MenuItem('用户管理', 'fa fa-users fa-fw', 'blankpage');
     private item_5 = new MenuItem('菜单管理', 'fa fa-bars fa-fw', 'navigationmenus');
 
-    private l2_folder_1 = new MenuFolder('l2_folder-1', 'fa fa-sitemap fa-fw', [this.item_3], null);
-    private l2_folder_2 = new MenuFolder('l2_folder-2', 'fa fa-sitemap fa-fw', [this.item_1, this.item_2, this.item_3], null);
+    private l2_folder_1 = new MenuFolder('l2_folder-1', 'fa fa-sitemap fa-fw', [this.item_3], []);
+    private l2_folder_2 = new MenuFolder('l2_folder-2', 'fa fa-sitemap fa-fw', [this.item_1, this.item_2, this.item_3], []);
 
-    private l1_folder_1 = new MenuFolder('l1_folder-1', 'fa fa-sitemap fa-fw', null, [this.l2_folder_1, this.l2_folder_2]);
-    private l1_folder_2 = new MenuFolder('l1_folder-2', 'fa fa-sitemap fa-fw', [this.item_1, this.item_2], null);
+    private l1_folder_1 = new MenuFolder('l1_folder-1', 'fa fa-sitemap fa-fw', [], [this.l2_folder_1, this.l2_folder_2]);
+    private l1_folder_2 = new MenuFolder('l1_folder-2', 'fa fa-sitemap fa-fw', [this.item_1, this.item_2], []);
 
-    private l1_folder_3 = new MenuFolder('系统配置', 'fa fa-wrench fa-fw', [this.item_4, this.item_5], null);
+    private l1_folder_3 = new MenuFolder('系统配置', 'fa fa-wrench fa-fw', [this.item_4, this.item_5], []);
 
     private menu = new Menu('MOCK', [this.item_dashboard], [this.l1_folder_3]);
 
@@ -52,42 +52,24 @@ export class MockMenuService implements MenuService {
         if (folders == null) return [];
         let filteredFolders:MenuFolder[] = [];
         for (let folder of folders) {
-            let copiedFolder = MockMenuService.copyFolder(folder, target);
-            if (copiedFolder) {
-                filteredFolders.push(copiedFolder);
+            let filterFolder = MockMenuService.filterFolder(folder, target);
+            if (filterFolder) {
+                filteredFolders.push(filterFolder);
             }
         }
         return filteredFolders;
     }
 
-    static copyFolder(folder:MenuFolder, target:string):MenuFolder {
+    static filterFolder(folder:MenuFolder, target:string):MenuFolder {
         if (folder.id.toLowerCase().indexOf(target.toLowerCase()) !== -1) {
             return folder;
         }
-        let mother:MenuFolder;
-        mother = null;
-        if (folder.folders != null) {
-            for (let cfolder of folder.folders) {
-                let copied = MockMenuService.copyFolder(cfolder, target);
-                if (copied) {
-                    if (mother == null) {
-                        mother = new MenuFolder(folder.id, folder.icon, [], []);
-                    }
-                    mother.folders.push(copied);
-                }
-            }
-        }
-        let items = MockMenuService.filterItems(folder.items, target);
-        if (items.length > 0) {
-            if (mother == null) {
-                mother = new MenuFolder(folder.id, folder.icon, [], []);
-            }
-            mother.items.push(...items);
+        let mother:MenuFolder = null;
+        let childFolders = MockMenuService.filterFolders(folder.folders, target);
+        let childItems = MockMenuService.filterItems(folder.items, target);
+        if (childFolders.length > 0 || childItems.length > 0) {
+            mother = new MenuFolder(folder.id, folder.icon, childItems, childFolders);
         }
         return mother;
     }
 }
-//
-// let menuService = new MockMenuService();
-//
-// console.log(menuService.getMenu('MOCK',null));

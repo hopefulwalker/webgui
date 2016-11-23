@@ -1,24 +1,10 @@
-<ul *ngIf="root" class="list-group">
-    <a *ngFor="let item of folder.items"
-       [routerLink]="item.url"
-       [routerLinkActive]="['router-link-active']"
-       class="list-group-item">
-        <i [ngClass]="item.icon"></i>{{item.id}}
-    </a>
-    <ftl-menu-folder *ngFor="let cfolder of folder.folders" [folder]="cfolder" [root]="false"></ftl-menu-folder>
-</ul>
-<div *ngIf="!root">
+<div>
     <a class="list-group-item" (click)="toggle()">
         <span><i [ngClass]="folder.icon"></i>{{folder.id}}</span>
     </a>
     <ul *ngIf="expanded">
-        <ftl-menu-folder *ngFor="let cfolder of folder.folders" [folder]="cfolder" [root]="false"></ftl-menu-folder>
-        <a *ngFor="let item of folder.items"
-           [routerLink]="item.url"
-           [routerLinkActive]="['router-link-active']"
-           class="list-group-item">
-            <i [ngClass]="item.icon"></i>{{item.id}}
-        </a>
+        <ftl-menu-folder *ngFor="let cfolder of folder.folders" [folder]="cfolder"></ftl-menu-folder>
+        <ftl-menu-item *ngFor="let citem of folder.items" [item]="citem"></ftl-menu-item>
     </ul>
 </div>
 
