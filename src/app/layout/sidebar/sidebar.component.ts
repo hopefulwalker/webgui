@@ -39,7 +39,10 @@ export class SidebarComponent {
                 console.log(error);
                 return Observable.of(null);
             })
-            .subscribe(menu=>this.menu = menu);
+            .subscribe(menu=> {
+                console.log(JSON.stringify(menu));
+                this.menu = menu;
+            });
         this.searchSubject.next(null);
     }
 

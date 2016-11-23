@@ -32,7 +32,7 @@ export class MockMenuService implements MenuService {
     }
 
     static filterMenu(menu:Menu, target:string):Menu {
-        let filteredMenu = new Menu('MOCK', null, null);
+        let filteredMenu = new Menu('MOCK', [], []);
 
         filteredMenu.items.push(...MockMenuService.filterItems(menu.items, target));
 
